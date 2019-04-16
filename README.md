@@ -35,6 +35,7 @@
 
     * messaging system can operate fully independent from RDBMS (maybe use RabbitMQ or similar)
     * sort requirements by implementation phases
+    * Can we leverage the built-in auth system for Teachers and Students?
 
 ## Flows
 
