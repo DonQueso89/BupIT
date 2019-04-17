@@ -35,7 +35,7 @@
 
     * messaging system can operate fully independent from RDBMS (maybe use RabbitMQ or similar)
     * sort requirements by implementation phases
-    * Can we leverage the built-in auth system for Teachers and Students?
+    * Best way of leveraging User and hooking profiles into the builtin auth system. Check https://docs.djangoproject.com/en/2.2/topics/auth/customizing/#auth-custom-user
 
 ## Flows
 
