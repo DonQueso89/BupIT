@@ -63,7 +63,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'templates',
+            'bupit/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,3 +138,8 @@ STATIC_URL = '/static/'
 # Django extensions
 
 SHELL_PLUS = 'ipython'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
+
+if DEBUG and not os.path.isdir(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT)
