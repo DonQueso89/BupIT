@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
    
     # Third party
-    #'django-extensions',
+    'django_extensions',
+    'crispy_forms',
 
     'teachers.apps.TeachersConfig',
     'students.apps.StudentsConfig',
@@ -134,6 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Django extensions
 
@@ -143,3 +147,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
 
 if DEBUG and not os.path.isdir(MEDIA_ROOT):
     os.makedirs(MEDIA_ROOT)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

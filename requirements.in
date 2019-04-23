@@ -4,3 +4,4 @@ django-extensions==2.1.6
 jinja2==2.10.1
 psycopg2==2.8.2
 Pillow==6.0.0
+django-crispy-forms==1.7.2
