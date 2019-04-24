@@ -1,20 +1,29 @@
-from .forms import RegisterUserForm
-from django.views.generic.edit import CreateView
+from .forms import RegisterUserForm, UserSettingsForm
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# Create your views here.
 class UserCreateView(CreateView):
     form_class = RegisterUserForm
     model = get_user_model()
     success_url = '/login/'
 
 
-class UserDetailView(DetailView, LoginRequiredMixin):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = UserSettingsForm
+    model = get_user_model()
+    template_name = 'users/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['active_content'] = 'users/user_settings.html'
+        return ctx
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     login_url = '/login/'
 

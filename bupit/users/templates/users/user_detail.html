@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style type='text/css'>
+.col > a { width: 100%;  }
+</style>
 <main class='container-fluid full-height' role='main'>
     <div class='row full-height'>
         <!--functions-->
-        <div class='col-sm-2' style='background-color:#111111; color:white;'>
-            <div class='row p-2'>
+        <div class='col-sm-3' style='background-color:#111111; color:white;'>
+            <div class='row m-2'>
                 <div class='col'>
                 <img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid" style='height:auto; width:100%;' alt="">
                 </div>
@@ -13,14 +16,36 @@
             <div class='row p-5'>
                 <p>Hello {{ user.username }}</p>
             </div>
-            <div class='row p-2'>
-                <a href={% url 'admin:logout' %} role="button" class="btn btn-outline-primary">Logout</a>
+            {% if request.user.is_student %}
+            <div class='row p-1'>
+                <div class='col'>
+                    <a href={% url 'user-create' %} role="button" class="btn btn-outline-primary"><span class="fa fa-graduation-cap"></span> StudentDashboard</a>
+                </div>
+            </div>
+            {% endif %}
+            {% if request.user.is_teacher %}
+            <div class='row p-1'>
+                <div class='col'>
+                    <a href={% url 'user-create' %} role="button" class="btn btn-outline-primary"><span class="fa fa-university"></span> TeacherDashboard</a>
+                </div>
+            </div>
+            {% endif %}
+            <div class='row p-1'>
+                <div class='col'>
+                    <a href={% url 'user-settings' request.user.pk %} role="button" class="btn btn-outline-primary"><span class="fa fa-cog"></span> Settings</a>
+                </div>
+            </div>
+            <div class='row p-1'>
+                <div class='col'>
+                    <a href={% url 'admin:logout' %} role="button" class="btn btn-outline-primary">Logout</a>
+                </div>
             </div>
         </div>
         <!--User profile content -->
         <div class='col'>
-            <div class='row p-3'>
-            </div>
+            {% if active_content %}
+                {% include active_content %}
+            {% endif %}
         </div>
     </div>
 </main>

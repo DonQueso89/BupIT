@@ -26,7 +26,7 @@ class RegisterUserForm(forms.UserCreationForm):
     """
 
     def __init__(self, *args, **kwargs):
-        super(RegisterUserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_action = 'user-create'
         self.helper.add_input(Submit("submit", "Submit"))
@@ -36,5 +36,12 @@ class RegisterUserForm(forms.UserCreationForm):
         # fields = UserCreationForm.Meta.fields + ('my_fields',)
 
 
-class ChangeUserForm(forms.UserChangeForm):
-    pass
+class UserSettingsForm(forms.UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit("submit", "Submit"))
+
+    class Meta(forms.UserChangeForm):
+        model = get_user_model()
+        fields = ('username',)

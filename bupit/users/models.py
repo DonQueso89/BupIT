@@ -15,3 +15,9 @@ class User(AbstractUser):
         creation of a User instance.
         """
         return reverse('user-detail', kwargs={'pk': self.pk})
+
+    def is_student(self):
+        return hasattr(self, 'studentprofile')
+
+    def is_teacher(self):
+        return hasattr(self, 'teacherprofile')
