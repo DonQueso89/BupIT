@@ -41,12 +41,14 @@
 
 Teachers
 
+0) Register --> Login --> ProfilePage --> Logout
 1) Login --> ProfilePage --> OpenRequestsPage --> MeetingForm --> MeetingEditForm --> ProfilePage --> Logout
 2) Login --> ProfilePage --> SettingsEditForm --> ProfilePage --> Logout
 3) Login --> ProfilePage --> ProfileEditForm --> ProfilePage --> Logout
 
 Students
 
+0) Register --> Login --> ProfilePage --> Logout
 1) Login --> TeacherListing --> MeetingForm --> MeetingEditForm --> Logout
 2) Login --> TeacherListing --> ProfilePage --> SettingsEditForm --> Logout
 3) Login --> TeacherListing --> ProfilePage --> ProfileEditForm --> ProfilePage --> Logout
