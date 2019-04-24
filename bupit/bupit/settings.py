@@ -149,3 +149,9 @@ if DEBUG and not os.path.isdir(MEDIA_ROOT):
     os.makedirs(MEDIA_ROOT)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# The URL to redirect to in case a user is bounced by the login_required decorator
+LOGIN_URL = '/login/'
+# The fallback URL in case the loginview is not told where to redirect by the login POST data
+LOGIN_REDIRECT_URL = '/loginsuccess/'
+LOGOUT_REDIRECT_URL = '/'

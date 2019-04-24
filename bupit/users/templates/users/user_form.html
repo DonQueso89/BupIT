@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <div class='container-fluid'>
-    {% crispy form %}
+    <div class='row'>
+        <div class='col-sm-1 p-1'>
+            <img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid" style='height:auto; max-width:100%;' alt="">
+        </div>
+        <div class='col'>
+            <h1>
+                Welcome to the BUPClub
+            </h1>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            {% crispy form %}
+        </div>
+    </div>
 </div>
 {% endblock %}

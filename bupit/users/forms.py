@@ -21,6 +21,10 @@ UserChangeForm
 
 
 class RegisterUserForm(forms.UserCreationForm):
+    """
+    Looks for user_form.html by default to use as template
+    """
+
     def __init__(self, *args, **kwargs):
         super(RegisterUserForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
