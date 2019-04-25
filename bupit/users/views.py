@@ -1,7 +1,7 @@
 from .forms import RegisterUserForm, UserSettingsForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, forms as auth_forms
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 

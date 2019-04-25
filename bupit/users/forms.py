@@ -1,6 +1,7 @@
+from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from django.contrib.auth import forms, get_user_model
+from django.contrib.auth import get_user_model, forms as auth_forms
 
 
 """
@@ -20,7 +21,7 @@ UserChangeForm
 """
 
 
-class RegisterUserForm(forms.UserCreationForm):
+class RegisterUserForm(auth_forms.UserCreationForm):
     """
     Looks for user_form.html by default to use as template
     """
@@ -31,17 +32,34 @@ class RegisterUserForm(forms.UserCreationForm):
         self.helper.form_action = 'user-create'
         self.helper.add_input(Submit("submit", "Submit"))
 
-    class Meta(forms.UserCreationForm.Meta):
+    class Meta(auth_forms.UserCreationForm.Meta):
         model = get_user_model()
         # fields = UserCreationForm.Meta.fields + ('my_fields',)
 
 
-class UserSettingsForm(forms.UserChangeForm):
+class UserSettingsForm(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit("submit", "Submit"))
 
-    class Meta(forms.UserChangeForm):
+    class Meta(auth_forms.UserChangeForm):
         model = get_user_model()
-        fields = ('username',)
+        fields = ('username', 'email',)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
