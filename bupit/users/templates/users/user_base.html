@@ -37,15 +37,18 @@
             </div>
             <div class='row p-1'>
                 <div class='col'>
-                    <a href={% url 'admin:logout' %} role="button" class="btn btn-outline-primary">Logout</a>
+                    <a href={% url 'logout' %} role="button" class="btn btn-outline-primary">Logout</a>
                 </div>
             </div>
         </div>
         <!--User profile content -->
         <div class='col'>
-            {% if active_content %}
-                {% include active_content %}
-            {% endif %}
+            <div class='row m-2'>
+                {% block active_content_header %}{% endblock %}
+            </div>
+            <div class='row'>
+                {% block active_content %}{% endblock %}
+            </div>
         </div>
     </div>
 </main>

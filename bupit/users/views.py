@@ -1,9 +1,10 @@
 from .forms import RegisterUserForm, UserSettingsForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
-from django.contrib.auth import get_user_model, forms as auth_forms
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from utils import SettingsTabsMixin
 
 
 class UserCreateView(CreateView):
@@ -12,20 +13,17 @@ class UserCreateView(CreateView):
     success_url = '/login/'
 
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, SettingsTabsMixin, UpdateView):
     form_class = UserSettingsForm
     model = get_user_model()
-    template_name = 'users/user_detail.html'
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['active_content'] = 'users/user_settings.html'
-        return ctx
+    template_name = 'users/user_settings.html'
+    active_settings = SettingsTabsMixin.GENERAL_SETTINGS
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     login_url = '/login/'
+    template_name = 'users/user_home.html'
 
     def get_object(self):
         """

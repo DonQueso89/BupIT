@@ -1,13 +1,39 @@
+{% extends 'users/user_base.html' %}
 {% load crispy_forms_tags %}
-<div class='row m-2'>
-    <div class=col'>
-        <h2>
-            <span class='fa fa-cog'></span> Settings
-        </h2>
-    </div>
+{% block active_content_header %}
+<div class="btn-group">
+{% for settings_tab in settings_tabs  %}
+    <h2>
+        <a href={{ settings_tab.url }} role="button" class="btn btn-primary{% if settings_tab.active %}active btn-outline-primary{% endif %}"><span class="fa fa-cog"></span> {{ settings_tab.name }}</a>
+    </h2>
+{% endfor %}
 </div>
-<div class='row'>
-    <div class='col'>
-        {% crispy form %}
+{% endblock %}
+{% block active_content %}
+<div class='col'>
+    <div class='row'>
+        <div class='col'>
+            {% crispy form %}
+        </div>
     </div>
+    {% if not request.user.is_student or not request.user.is_teacher %}
+    <div class='row'>
+        <div class='col'>
+            <div class="dropdown">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                    Create a BUP
+                </button>
+                <div class="dropdown-menu">
+                    {% if not request.user.is_student %}
+                    <a class="dropdown-item" href="{% url 'student-profile-create' %}">Student</a>
+                    {% endif %}
+                    {% if not request.user.is_teacher %}
+                    <a class="dropdown-item" href="{% url 'teacher-profile-create' %}">Teacher</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
+{% endblock %}

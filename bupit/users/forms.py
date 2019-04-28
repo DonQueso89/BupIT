@@ -34,12 +34,21 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 
     class Meta(auth_forms.UserCreationForm.Meta):
         model = get_user_model()
-        # fields = UserCreationForm.Meta.fields + ('my_fields',)
+        fields = ('username', 'email',)
 
 
 class UserSettingsForm(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(
+        label='Password',
+        required=False,
+        widget=forms.PasswordInput
+    )
+    password2 = forms.CharField(
+        label='Password confirmation',
+        required=False,
+        widget=forms.PasswordInput
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -59,7 +68,8 @@ class UserSettingsForm(forms.ModelForm):
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        if self.cleaned_data['password1'] and self.cleaned_data['password2']:
+            user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user

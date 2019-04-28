@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.shortcuts import reverse
 
 
 class TeacherProfile(models.Model):
@@ -28,6 +29,13 @@ class TeacherProfile(models.Model):
         upload_to='teacher_photos/%Y/%m/%d'
     )
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        """
+        Return value is used by creation views to redirect after successful
+        creation of a User instance.
+        """
+        return reverse('teacher-profile-settings', kwargs={'pk': self.pk})
 
     def __str__(self):
         return u"name: %s user: %s status: %s" % (
