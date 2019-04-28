@@ -52,3 +52,14 @@ Students
 1) Login --> TeacherListing --> MeetingForm --> MeetingEditForm --> Logout
 2) Login --> TeacherListing --> ProfilePage --> SettingsEditForm --> Logout
 3) Login --> TeacherListing --> ProfilePage --> ProfileEditForm --> ProfilePage --> Logout
+
+## 0.2 phase
+- Phone number in BUP attrs
+- Add high school subjects options to students andd teachers
+- Temporal and geographical availability
+- Move initial BUP creation to Register flow
+- If a user registers a different BUP for the same email-address, offer the user to login and link that new BUP to the existing user
+- Implement Dashboards
+- Restyling
+
+- Rating via email initially
