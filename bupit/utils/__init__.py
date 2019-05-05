@@ -38,7 +38,7 @@ class SettingsTabsMixin(object):
                 {
                     "name": "Student settings",
                     "active": self.active_settings == self.STUDENT_SETTINGS,
-                    "url": reverse("student-profile-settings", kwargs={"pk": self.request.user.pk})
+                    "url": reverse("student-profile-settings", kwargs={"pk": self.request.user.studentprofile.pk})
                 }
             )
         ctx['settings_tabs'] = settings_tabs

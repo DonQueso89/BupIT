@@ -17,8 +17,7 @@ class StudentProfileForm(forms.ModelForm, RequestInFormMixin):
         class Meta(object):
             model = StudentProfile
             fields = (
-                'name',
-                'email',
+                'student_email',
                 'profile_picture',
                 'user',
             )

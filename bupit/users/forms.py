@@ -21,22 +21,6 @@ UserChangeForm
 """
 
 
-class RegisterUserForm(auth_forms.UserCreationForm):
-    """
-    Looks for user_form.html by default to use as template
-    """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_action = 'user-create'
-        self.helper.add_input(Submit("submit", "Submit"))
-
-    class Meta(auth_forms.UserCreationForm.Meta):
-        model = get_user_model()
-        fields = ('username', 'email',)
-
-
 class UserSettingsForm(forms.ModelForm):
     password1 = forms.CharField(
         label='Password',

@@ -1,16 +1,11 @@
-from .forms import RegisterUserForm, UserSettingsForm
-from django.views.generic.edit import CreateView, UpdateView
+from .forms import UserSettingsForm
+from django.views.generic.edit import UpdateView
 from django.views.generic import DetailView
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from utils import SettingsTabsMixin
-
-
-class UserCreateView(CreateView):
-    form_class = RegisterUserForm
-    model = get_user_model()
-    success_url = '/login/'
 
 
 class UserUpdateView(LoginRequiredMixin, SettingsTabsMixin, UpdateView):
@@ -22,7 +17,7 @@ class UserUpdateView(LoginRequiredMixin, SettingsTabsMixin, UpdateView):
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
-    login_url = '/login/'
+    login_url = reverse_lazy('login')
     template_name = 'users/user_home.html'
 
     def get_object(self):

@@ -12,9 +12,8 @@ class TeacherProfile(models.Model):
     )
 
     # Base
-    name = models.CharField(max_length=200)
-    email = models.EmailField(
-        help_text="Email-address for correspondence related to your teacher profile"
+    teacher_email = models.EmailField(
+        help_text="Email-address for correspondence related to your teacher profile."
     )
     status = models.IntegerField(
         choices=STATUS_CHOICES,
@@ -26,9 +25,11 @@ class TeacherProfile(models.Model):
     )
 
     profile_picture = models.ImageField(
-        upload_to='teacher_photos/%Y/%m/%d'
+        upload_to='teacher_photos/%Y/%m/%d',
+        blank=True
     )
     date_created = models.DateTimeField(auto_now_add=True)
+    #phone_number = models.CharField(max_length=50)
 
     def get_absolute_url(self):
         """

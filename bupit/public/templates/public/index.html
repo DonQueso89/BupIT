@@ -1,34 +1,57 @@
-{% extends 'base.html'%}
-{% block content %}
+{% extends 'public/public_base.html'%}
 {% load static %}
 <style>
 a:hover { cursor: pointer}
 </style>
-<main class='container-fluid full-height' role='main'>
-    <div class='row full-height'>
-        <!--functions-->
-        <div class='col-sm-3' style='background-color:#111111; color:white;'>
-            <div class='row m-2'>
-                <div class='col'>
-                <img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid" style='height:auto; width:100%;' alt="">
-                </div>
-            </div>
-            <div class='row p-5'>
-                <p>Fair services</p>
-            </div>
-            <div class='row p-2'>
-                <a href={% url 'register' %} role="button" class="btn btn-outline-primary">Register</a>
-            </div>
-            <div class='row p-2'>
-                <a href={% url 'login' %} role="button" class="btn btn-outline-success">Login</a>
-            </div>
-        </div>
-        <!--content-->
-        <div class='col'>
-            <div class='row p-3'>
-                <p>Where goats connect</p>
-            </div>
-        </div>
-    </div>
-</main>
-{% endblock %}
+{% block active_content %}
+<div class="container-fluid">
+    <div class="row">
+		<div class="col text-center">
+		    <h4>Wie is Bup?</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
+                dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
+                eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor.
+		    </p>
+		</div>
+	</div><!--/row-->
+	<div class="row my-5">
+		<div class="col">
+		    <h4>Contact</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+		    </p>
+		</div>
+		<div class="col">
+		    <h4>Goede doelen</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+		    </p>
+		</div>
+		<div class="col">
+		    <h4>Bup Store</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+		    </p>
+		</div>
+		<div class="col">
+		    <h4>Privacy</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+		    </p>
+		</div>
+		<div class="col">
+		    <h4>Veiligheid</h4>
+		    <p>
+		        Here is my page content. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+		    </p>
+		</div>
+	</div><!--/row-->
+</div><!--container-->
+ {% endblock %}

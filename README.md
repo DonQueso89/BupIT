@@ -39,27 +39,30 @@
 
 ## Flows
 
+Users
+0) Register --> Choose Student or teacher --> RegisterForm --> Login --> ProfilePage --> Logout
+
 Teachers
 
-0) Register --> Login --> ProfilePage --> Logout
 1) Login --> ProfilePage --> OpenRequestsPage --> MeetingForm --> MeetingEditForm --> ProfilePage --> Logout
 2) Login --> ProfilePage --> SettingsEditForm --> ProfilePage --> Logout
 3) Login --> ProfilePage --> ProfileEditForm --> ProfilePage --> Logout
 
 Students
 
-0) Register --> Login --> ProfilePage --> Logout
 1) Login --> TeacherListing --> MeetingForm --> MeetingEditForm --> Logout
 2) Login --> TeacherListing --> ProfilePage --> SettingsEditForm --> Logout
 3) Login --> TeacherListing --> ProfilePage --> ProfileEditForm --> ProfilePage --> Logout
 
-## 0.2 phase
-- Phone number in BUP attrs
-- Add high school subjects options to students andd teachers
-- Temporal and geographical availability
+## 0.0.2 phase
 - Move initial BUP creation to Register flow
 - If a user registers a different BUP for the same email-address, offer the user to login and link that new BUP to the existing user
+- Make login a popup
 - Implement Dashboards
 - Restyling
+- All frontend in Dutch
+- Restructure templates according to wireframes
+- Temporal and geographical availability
+- Add high school subjects options to students and teachers
 
 - Rating via email initially

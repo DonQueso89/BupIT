@@ -1,22 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'users/registration_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-{% block content %}
-<div class='container-fluid'>
-    <div class='row'>
-        <div class='col-sm-1 p-1'>
-            <img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid" style='height:auto; max-width:100%;' alt="">
-        </div>
-        <div class='col'>
-            <h1>
-                Welcome to the BUPClub
-            </h1>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col'>
-            {% crispy form %}
-        </div>
-    </div>
-</div>
+{% block registration_step_title %}
+Step 1: Register your user credentials
+{% endblock %}
+{% block registration_form %}
+{% crispy form %}
 {% endblock %}

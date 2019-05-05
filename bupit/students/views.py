@@ -7,11 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from utils import RequestInFormMixin, SettingsTabsMixin
 
 
-class StudentProfileCreateView(LoginRequiredMixin, SettingsTabsMixin, RequestInFormMixin, CreateView):
+class StudentProfileCreateView(SettingsTabsMixin, RequestInFormMixin, CreateView):
     form_class = StudentProfileForm
     model = StudentProfile
     login_url = '/login/'
-    template_name = 'students/student_settings.html'
     active_settings = SettingsTabsMixin.STUDENT_SETTINGS
 
     def get_context_data(self, **kwargs):

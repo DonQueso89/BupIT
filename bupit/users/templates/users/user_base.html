@@ -3,6 +3,9 @@
 {% block content %}
 <style type='text/css'>
 .col > a { width: 100%;  }
+.btn:hover {
+    color: green;
+}
 </style>
 <main class='container-fluid full-height' role='main'>
     <div class='row full-height'>
@@ -19,25 +22,25 @@
             {% if request.user.is_student %}
             <div class='row p-1'>
                 <div class='col'>
-                    <a href={% url 'user-create' %} role="button" class="btn btn-outline-primary"><span class="fa fa-graduation-cap"></span> StudentDashboard</a>
+                    <a href="#" role="button" class="btn btn-outline"><span class="fa fa-graduation-cap"></span> StudentDashboard</a>
                 </div>
             </div>
             {% endif %}
             {% if request.user.is_teacher %}
             <div class='row p-1'>
                 <div class='col'>
-                    <a href={% url 'user-create' %} role="button" class="btn btn-outline-primary"><span class="fa fa-university"></span> TeacherDashboard</a>
+                    <a href="#" role="button" class="btn btn-outline"><span class="fa fa-university"></span> TeacherDashboard</a>
                 </div>
             </div>
             {% endif %}
             <div class='row p-1'>
                 <div class='col'>
-                    <a href={% url 'user-settings' request.user.pk %} role="button" class="btn btn-outline-primary"><span class="fa fa-cog"></span> Settings</a>
+                    <a href={% url 'user-settings' request.user.pk %} role="button" class="btn btn-outline"><span class="fa fa-cog"></span> Settings</a>
                 </div>
             </div>
             <div class='row p-1'>
                 <div class='col'>
-                    <a href={% url 'logout' %} role="button" class="btn btn-outline-primary">Logout</a>
+                    <a href={% url 'logout' %} role="button" class="btn btn-outline">Logout</a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,31 @@
+{% extends 'public/public_base.html' %}
+{% load static %}
+{% block active_content %}
+{% load crispy_forms_tags %}
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col'>
+            <a id="on-page-form-link">
+                <h1>
+                    Welkom bij de Bup Club
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+                <h2>
+                    Meld je aan als {{ register_as }}
+                </h2>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <form action="{% url 'register' register_as %}" method="post" enctype="multipart/form-data">
+                {% crispy user_form %}
+                {% crispy profile_form %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

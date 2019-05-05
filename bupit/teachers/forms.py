@@ -17,8 +17,7 @@ class TeacherProfileForm(forms.ModelForm):
         class Meta(object):
             model = TeacherProfile
             fields = (
-                'name',
-                'email',
+                'teacher_email',
                 'profile_picture',
                 'user',
                 #'status'
