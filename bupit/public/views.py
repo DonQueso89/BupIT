@@ -49,7 +49,7 @@ def register(request, register_as):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            return redirect('login')
+            return redirect('registration-success')
 
         return render(
             request,
@@ -62,3 +62,20 @@ def register(request, register_as):
             },
             status=200
         )
+
+
+def registration_success(request):
+    return render(
+        request,
+        template_name='public/registration_success.html',
+        context={
+            'login_form': public_forms.UserAuthenticationForm()
+        },
+    )
+
+
+def registration_choice(request):
+    return render(
+        request,
+        template_name='public/registration_choice.html',
+    )

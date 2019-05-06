@@ -29,7 +29,6 @@ class StudentProfile(models.Model):
         blank=True
     )
     date_created = models.DateTimeField(auto_now_add=True)
-    #phone_number = models.CharField(max_length=50)
 
     def get_absolute_url(self):
         """

@@ -50,6 +50,7 @@ a:hover { cursor: pointer}
             <!-- Modal body -->
             <div class="modal-body">
                 {% crispy login_form %}
+                Nog geen account? <a href={% url 'registration-choice' %}>Registreren</a>
             </div>
         </div>
     </div>

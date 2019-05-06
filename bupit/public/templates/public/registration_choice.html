@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+a:hover { cursor: pointer}
+</style>
+{% block content %}
+<div class="container-fluid">
+     <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid">
+    	      <div class="row">
+    		    <div class="col-1">
+                    <a href={% url 'index' %}><img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid rounded-circle" style='' alt=""></a>
+    		    </div>
+    		    <div class="col">
+    		        <h1>Bup it</h1>
+    		    </div>
+    	    </div><!--/row-->
+	    </div><!--/container-fluid-->
+	</div><!--jumbotron-->
+</div><!--container-->
+<div class='container-fluid'>
+    <div class='row'>
+            <div class="col">
+                <div class="float-right">
+                <a href={% url 'register' 'leerling' %}#on-page-form-link><button type="button" class="btn btn-outline-info btn-lg rounded">Aanmelden als leerling<br/><small style="font-size:0.8rem; color:black;">Meld  je aan en </br>vind direct leraren bij jou in de buurt</small></button></a>
+                </div>
+            </div>
+            <div class="col">
+                <a href={% url 'register' 'leraar' %}#on-page-form-link ><button type="button" class="btn btn-outline-info btn-lg rounded" data-toggle="tooltip" data-delay="0">Aanmelden als leraar<br/><small style="font-size:0.8rem; color:black;">momenteel kan je je aleen</br>aanmelden als UVA student</small></button></a>
+            </div><!--col-->
+        </div><!--row-->
+    </div><!--container-fluid-->
+ {% endblock %}
