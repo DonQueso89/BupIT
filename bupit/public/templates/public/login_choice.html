@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+<style>
+a:hover { cursor: pointer}
+</style>
+{% block content %}
+<div class="container-fluid">
+     <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid">
+    	      <div class="row">
+    		    <div class="col-1">
+                    <a href={% url 'index' %}><img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid rounded-circle" style='' alt=""></a>
+    		    </div>
+    		    <div class="col">
+    		        <h1>Bup it</h1>
+    		    </div>
+    	    </div><!--/row-->
+	    </div><!--/container-fluid-->
+	</div><!--jumbotron-->
+</div><!--container-->
+<div class='container-fluid'>
+    <div class='row my-5'>
+        <div class='col text-center'>
+            <h5>We zien dat je zowel een account als leerling en als leraar hebt. Hoe wil je inloggen?</h5>
+        </div>
+    </div>
+    <div class='row'>
+            <div class="col">
+                <div class="float-right">
+                    <form action={% url 'login-choice' %} method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="student" name="log_in_as"></input>
+                        <button type="submit" class="btn btn-outline-info btn-lg rounded">Inloggen als leerling</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                    <form action={% url 'login-choice' %} method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="teacher" name="log_in_as"></input>
+                        <button type="submit" class="btn btn-outline-info btn-lg rounded">Inloggen als leraar</button>
+                    </form>
+            </div><!--col-->
+        </div><!--row-->
+    </div><!--container-fluid-->
+ {% endblock %}

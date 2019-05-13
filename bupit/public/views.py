@@ -1,4 +1,5 @@
 from logging import getLogger
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from public import forms as public_forms
@@ -79,3 +80,23 @@ def registration_choice(request):
         request,
         template_name='public/registration_choice.html',
     )
+
+
+@login_required
+def login_choice(request):
+    if request.method == 'GET':
+        return render(
+            request,
+            template_name='public/login_choice.html',
+        )
+    else:
+        logged_in_as = request.POST.get('log_in_as')
+        if not logged_in_as or logged_in_as not in ('student', 'teacher'):
+            raise Http404("Somebody is messing with post data")
+        elif logged_in_as == 'student' and not request.user.is_student:
+            raise Http404("Path not allowed for this user")
+        elif logged_in_as == 'teacher' and not request.user.is_teacher:
+            raise Http404("Path not allowed for this user")
+        else:
+            request.session['logged_in_as'] = logged_in_as
+            return redirect('user-detail', pk=request.user.id)

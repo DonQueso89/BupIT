@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -151,7 +152,7 @@ if DEBUG and not os.path.isdir(MEDIA_ROOT):
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # The URL to redirect to in case a user is bounced by the login_required decorator
-LOGIN_URL = '/login/'
+LOGIN_URL = reverse_lazy('login')
 # The fallback URL in case the loginview is not told where to redirect by the login POST data
-LOGIN_REDIRECT_URL = '/loginsuccess/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('login-success')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')

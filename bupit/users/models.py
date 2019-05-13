@@ -34,8 +34,10 @@ class User(AbstractUser):
         """
         return reverse('user-detail', kwargs={'pk': self.pk})
 
+    @property
     def is_student(self):
         return hasattr(self, 'studentprofile')
-
+    
+    @property
     def is_teacher(self):
         return hasattr(self, 'teacherprofile')

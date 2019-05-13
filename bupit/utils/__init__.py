@@ -25,7 +25,7 @@ class SettingsTabsMixin(object):
                     "url": reverse("user-settings", kwargs={"pk": self.request.user.pk})
                 }
         ]
-        if self.request.user.is_teacher():
+        if self.request.user.is_teacher:
             settings_tabs.append(
                 {
                     "name": "Teacher settings",

@@ -1,58 +1,69 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% load static %}
-{% block content %}
-<style type='text/css'>
-.col > a { width: 100%;  }
-.btn:hover {
-    color: green;
-}
+{% load crispy_forms_tags %}
+<style>
+a:hover { cursor: pointer}
 </style>
-<main class='container-fluid full-height' role='main'>
-    <div class='row full-height'>
-        <!--functions-->
-        <div class='col-sm-3' style='background-color:#111111; color:white;'>
-            <div class='row m-2'>
-                <div class='col'>
-                <img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid" style='height:auto; width:100%;' alt="">
-                </div>
+{% block content %}
+<div class="container-fluid">
+     <div class="jumbotron jumbotron-fluid py-2">
+        <div class="container-fluid">
+    	      <div class="row">
+    		    <div class="col-1">
+                    <a href={% url 'user-detail' pk=request.user.pk %}><img src="{% static "main_icon.jpg"  %}" class="rounded img-fluid rounded-circle" style='' alt=""></a>
+    		    </div>
+    		    <div class="col">
+    		        <h1>Bup it</h1>
+    		    </div>
+    		    <div class="col-auto">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                        <a class="nav-link active" id="dashboard-tab" data-toggle="pill" href="#dashboard-tab-content" role="tab" aria-controls="dashboard-tab-content" aria-selected="true">Vind  {% if request.session.logged_in_as == 'student' %}leraren{% else %}leerlingen{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile-tab-content" role="tab" aria-controls="profile-tab-content" aria-selected="false">Profiel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="help-tab" data-toggle="pill" href="help=tab-content" role="tab" aria-controls="help-tab-content" aria-selected="false">Help</a>
+                        </li>
+                    </ul>
+    		    </div>
+    		    <div class="col-auto">
+                    <button type="button" class="btn btn-outline-success rounded-0" data-toggle="modal" data-target="#logout-modal" >Uitloggen</button>
+    		    </div>
+    	    </div><!--/row-->
+	    </div><!--/container-fluid-->
+	</div><!--jumbotron-->
+</div><!--container-->
+<div class="container-fluid">
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="dashboard-tab-content" role="tabpanel" aria-labelledby="dashboard-tab"></div>
+        <div class="tab-pane fade" id="profile-tab-content" role="tabpanel" aria-labelledby="profile-tab"></div>
+        <div class="tab-pane fade" id="help-tab-content" role="tabpanel" aria-labelledby="help-tab"></div>
+    </div>
+</div>
+
+<!-- Modal for logging out -->
+<div class="modal fade" id="logout-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Uitloggen?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class='row p-5'>
-                <p>Hello {{ user.username }}</p>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Weet je zeker dat je wil uitloggen?</p>
             </div>
-            {% if request.user.is_student %}
-            <div class='row p-1'>
-                <div class='col'>
-                    <a href="#" role="button" class="btn btn-outline"><span class="fa fa-graduation-cap"></span> StudentDashboard</a>
-                </div>
-            </div>
-            {% endif %}
-            {% if request.user.is_teacher %}
-            <div class='row p-1'>
-                <div class='col'>
-                    <a href="#" role="button" class="btn btn-outline"><span class="fa fa-university"></span> TeacherDashboard</a>
-                </div>
-            </div>
-            {% endif %}
-            <div class='row p-1'>
-                <div class='col'>
-                    <a href={% url 'user-settings' request.user.pk %} role="button" class="btn btn-outline"><span class="fa fa-cog"></span> Settings</a>
-                </div>
-            </div>
-            <div class='row p-1'>
-                <div class='col'>
-                    <a href={% url 'logout' %} role="button" class="btn btn-outline">Logout</a>
-                </div>
-            </div>
-        </div>
-        <!--User profile content -->
-        <div class='col'>
-            <div class='row m-2'>
-                {% block active_content_header %}{% endblock %}
-            </div>
-            <div class='row'>
-                {% block active_content %}{% endblock %}
+
+            <div class="modal-footer">
+                <a href={% url 'logout' %}><button type="button" class="btn btn-danger">Ja. Später!</button></a>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Nee, ik blijf :D</button>
             </div>
         </div>
     </div>
-</main>
-{% endblock %}
+</div>
+ {% endblock %}
