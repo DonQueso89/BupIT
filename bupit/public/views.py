@@ -99,4 +99,4 @@ def login_choice(request):
             raise Http404("Path not allowed for this user")
         else:
             request.session['logged_in_as'] = logged_in_as
-            return redirect('user-detail', pk=request.user.id)
+            return redirect('login-success')

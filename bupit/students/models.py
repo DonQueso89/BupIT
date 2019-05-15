@@ -38,8 +38,7 @@ class StudentProfile(models.Model):
         return reverse('student-profile-settings', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return u"name: %s user: %s status: %s" % (
-            self.name,
+        return u"user: %s status: %s" % (
             self.user.username,
             dict(self.STATUS_CHOICES)[self.status]
         )

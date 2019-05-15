@@ -4,8 +4,7 @@ from crispy_forms.layout import Submit
 from teachers.models import TeacherProfile
 
 
-class TeacherProfileForm(forms.ModelForm):
-        user = forms.IntegerField(widget=forms.HiddenInput())
+class TeacherProfileUpdateForm(forms.ModelForm):
         # status = forms.IntegerField(widget=forms.HiddenInput())
 
         def __init__(self, *args, **kwargs):

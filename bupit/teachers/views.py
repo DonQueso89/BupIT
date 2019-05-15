@@ -1,37 +1,11 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
+from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from teachers.models import TeacherProfile
-from teachers.forms import TeacherProfileForm
+from teachers.forms import TeacherProfileUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from utils import RequestInFormMixin, SettingsTabsMixin
-
-
-class TeacherProfileCreateView(LoginRequiredMixin, SettingsTabsMixin, RequestInFormMixin, CreateView):
-    form_class = TeacherProfileForm
-    model = TeacherProfile
-    login_url = '/login/'
-    template_name = 'teachers/teacher_settings.html'
-    active_settings = SettingsTabsMixin.TEACHER_SETTINGS
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        # Users can only create BUPs for themselves
-        ctx['form'].fields['user'].initial = self.request.user.pk
-        ctx['form'].fields['email'].initial = self.request.user.email
-        return ctx
-
-
-class TeacherProfileUpdateView(LoginRequiredMixin, SettingsTabsMixin, RequestInFormMixin, UpdateView):
-    form_class = TeacherProfileForm
-    model = TeacherProfile
-    login_url = '/login/'
-    template_name = 'teachers/teacher_settings.html'
-    active_settings = SettingsTabsMixin.TEACHER_SETTINGS
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        return ctx
+from utils import RequestInFormMixin, TeacherNavbarMixin, StudentNavbarMixin
 
 
 class TeacherProfileDetailView(LoginRequiredMixin, DetailView):
@@ -47,3 +21,17 @@ class TeacherProfileDetailView(LoginRequiredMixin, DetailView):
             self.model,
             pk=self.request.user.teacherprofile.pk
         )
+
+
+class TeacherProfileUpdateView(LoginRequiredMixin, TeacherNavbarMixin, RequestInFormMixin, UpdateView):
+    form_class = TeacherProfileUpdateForm
+    model = TeacherProfile
+    login_url = '/login/'
+    template_name = 'teachers/teacher_settings.html'
+    active_nav_item = TeacherNavbarMixin.NAV_ITEM_SETTINGS
+
+
+class TeacherDashboardView(LoginRequiredMixin, StudentNavbarMixin, TemplateView):
+    login_url = '/login/'
+    template_name = 'teachers/teacher_dashboard.html'
+    active_nav_item = StudentNavbarMixin.NAV_ITEM_DASHBOARD

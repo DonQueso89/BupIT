@@ -10,13 +10,19 @@ def login_success(request):
 
     TODO: Add default login preferences to user settings
     """
+    # Redirected back from login choice
+    if request.session.get('logged_in_as') == 'student':
+        return redirect('student-profile-settings', pk=request.user.studentprofile.pk)
+    if request.session.get('logged_in_as') == 'teacher':
+        return redirect('teacher-profile-settings', pk=request.user.teacherprofile.pk)
+
     # Redirected from the login view
     if request.user.is_student and not request.user.is_teacher:
         request.session['logged_in_as'] = 'student'
-        return redirect('user-detail', pk=request.user.pk)
+        return redirect('student-profile-settings', pk=request.user.studentprofile.pk)
     elif request.user.is_teacher and not request.user.is_student:
         request.session['logged_in_as'] = 'teacher'
-        return redirect('user-detail', pk=request.user.pk)
+        return redirect('teacher-profile-settings', pk=request.user.teacherprofile.pk)
     elif request.user.is_teacher and request.user.is_student:
         return redirect('login-choice')
     else:

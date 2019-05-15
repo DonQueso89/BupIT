@@ -1,36 +1,11 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView, FormView
+from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from students.models import StudentProfile
 from students.forms import StudentProfileForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from utils import RequestInFormMixin, SettingsTabsMixin
-
-
-class StudentProfileCreateView(SettingsTabsMixin, RequestInFormMixin, CreateView):
-    form_class = StudentProfileForm
-    model = StudentProfile
-    login_url = '/login/'
-    active_settings = SettingsTabsMixin.STUDENT_SETTINGS
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        # Users can only create BUPs for themselves
-        ctx['form'].fields['user'].initial = self.request.user.pk
-        ctx['form'].fields['email'].initial = self.request.user.email
-        return ctx
-
-
-class StudentProfileUpdateView(LoginRequiredMixin, SettingsTabsMixin, RequestInFormMixin, UpdateView):
-    form_class = StudentProfileForm
-    model = StudentProfile
-    login_url = '/login/'
-    template_name = 'students/student_settings.html'
-    active_settings = SettingsTabsMixin.STUDENT_SETTINGS
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        return ctx
+from utils import RequestInFormMixin, SettingsTabsMixin, StudentNavbarMixin, TeacherNavbarMixin
 
 
 class StudentProfileDetailView(LoginRequiredMixin, DetailView):
@@ -46,3 +21,17 @@ class StudentProfileDetailView(LoginRequiredMixin, DetailView):
             self.model,
             pk=self.request.user.studentprofile.pk
         )
+
+
+class StudentProfileUpdateView(LoginRequiredMixin, StudentNavbarMixin, RequestInFormMixin, UpdateView):
+    form_class = StudentProfileForm
+    model = StudentProfile
+    login_url = '/login/'
+    template_name = 'students/student_settings.html'
+    active_nav_item = StudentNavbarMixin.NAV_ITEM_SETTINGS
+
+
+class StudentDashboardView(LoginRequiredMixin, TeacherNavbarMixin, TemplateView):
+    login_url = '/login/'
+    template_name = 'students/student_dashboard.html'
+    active_nav_item = TeacherNavbarMixin.NAV_ITEM_DASHBOARD
