@@ -1,7 +1,8 @@
-from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Layout
 from django.contrib.auth import get_user_model, forms as auth_forms
+from utils.crispy_building_blocks import Col, Row
+
 
 
 """
@@ -21,39 +22,34 @@ UserChangeForm
 """
 
 
-class UserSettingsForm(forms.ModelForm):
-    password1 = forms.CharField(
-        label='Password',
-        required=False,
-        widget=forms.PasswordInput
-    )
-    password2 = forms.CharField(
-        label='Password confirmation',
-        required=False,
-        widget=forms.PasswordInput
-    )
+class UserUpdateForm(auth_forms.UserChangeForm):
+    """
+    For use in either Teacher or Student settings forms.
+    """
+    prefix = 'user'
+    helper = FormHelper()
+    helper.form_tag = False
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit("submit", "Submit"))
+        # Field translation
+        self.fields['first_name'].label = 'Voornaam'
+        self.fields['last_name'].label = 'Achternaam'
+        self.fields['username'].label = 'Gebruikersnaam'
+        self.fields['phonenumber'].label = 'Telefoonnummer'
+        self.fields['email'].label = 'Email'
 
-    class Meta(auth_forms.UserChangeForm):
+        self.helper.layout = Layout(
+            Row(Col('username'), Col('first_name'), Col('last_name')),
+            Row(Col('phonenumber'), Col('email')),
+        )
+
+    class Meta(auth_forms.UserChangeForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email',)
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
-        return password2
-
-    def save(self, commit=True):
-        # Save the provided password in hashed format
-        user = super().save(commit=False)
-        if self.cleaned_data['password1'] and self.cleaned_data['password2']:
-            user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phonenumber',
+        )

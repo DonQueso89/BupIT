@@ -44,11 +44,18 @@ def register(request, register_as):
     else:
         user_form = public_forms.UserRegistrationForm(request.POST)
         profile_form = profile_form_class(request.POST, request.FILES)
+        email_field = {
+            'leerling': 'student_email',
+            'leraar': 'teacher_email',
+        }.get(register_as)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             profile = profile_form.save(commit=False)
+
+            # Set the teacher/student email to the user email initially
             profile.user = user
+            setattr(profile, email_field, user.email)
             profile.save()
             return redirect('registration-success')
 

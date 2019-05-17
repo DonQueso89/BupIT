@@ -24,7 +24,8 @@ class TeacherProfile(models.Model):
     )
 
     teacher_email = models.EmailField(
-        help_text="Email-address for correspondence related to your teacher profile."
+        help_text="Als je een ander email adres wilt gebruiken voor je leraren account, vul dit dan in. Anders gebruiken we je gebruikersemail.",
+        blank=True,
     )
     status = models.IntegerField(choices=STATUS_CHOICES, default=STATUS_DISABLED)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

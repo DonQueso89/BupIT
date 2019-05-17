@@ -4,11 +4,21 @@ from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from students.models import StudentProfile
 from students.forms import StudentProfileForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from utils import RequestInFormMixin, SettingsTabsMixin, StudentNavbarMixin, TeacherNavbarMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from utils import RequestInFormMixin, StudentNavbarMixin, TeacherNavbarMixin
 
 
-class StudentProfileDetailView(LoginRequiredMixin, DetailView):
+class StudentAccessControlMixin(UserPassesTestMixin):
+    permission_denied_message = "Unauthorized"
+
+    def test_func(self):
+        """
+        Logged in users should only be able to to CRUD for themselves.
+        """
+        return int(self.request.user.studentprofile.id) == int(self.kwargs['pk'])
+
+
+class StudentProfileDetailView(LoginRequiredMixin, StudentAccessControlMixin, DetailView):
     model = StudentProfile
     login_url = '/login/'
     template_name = 'students/student_detail.html'
@@ -23,7 +33,7 @@ class StudentProfileDetailView(LoginRequiredMixin, DetailView):
         )
 
 
-class StudentProfileUpdateView(LoginRequiredMixin, StudentNavbarMixin, RequestInFormMixin, UpdateView):
+class StudentProfileUpdateView(LoginRequiredMixin, StudentAccessControlMixin, StudentNavbarMixin, RequestInFormMixin, UpdateView):
     form_class = StudentProfileForm
     model = StudentProfile
     login_url = '/login/'
